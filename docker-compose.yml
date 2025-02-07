@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0 
+    container_name: easytour
+    environment:
+      MYSQL_DATABASE: easytour 
+      MYSQL_USER: team9
+      MYSQL_PASSWORD: team9password
+      MYSQL_ROOT_PASSWORD: team9password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
