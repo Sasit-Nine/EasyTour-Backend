@@ -369,6 +369,230 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
+  collectionName: 'bookings';
+  info: {
+    description: '';
+    displayName: 'Booking';
+    pluralName: 'bookings';
+    singularName: 'booking';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    customers: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::booking.booking'
+    > &
+      Schema.Attribute.Private;
+    package: Schema.Attribute.Relation<'manyToOne', 'api::package.package'>;
+    payment: Schema.Attribute.Relation<'oneToOne', 'api::payment.payment'>;
+    payment_intent_id: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer;
+    total_price: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
+  collectionName: 'locations';
+  info: {
+    displayName: 'Location';
+    pluralName: 'locations';
+    singularName: 'location';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    district: Schema.Attribute.String;
+    google_place_id: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::location.location'
+    > &
+      Schema.Attribute.Private;
+    package: Schema.Attribute.Relation<'oneToOne', 'api::package.package'>;
+    province: Schema.Attribute.Enumeration<
+      [
+        'Bangkok',
+        'Samut Prakan',
+        'Nonthaburi',
+        'Pathum Thani',
+        'Phra Nakhon Si Ayutthaya',
+        'Ang Thong',
+        'Lop Buri',
+        'Sing Buri',
+        'Chai Nat',
+        'Saraburi',
+        'Chon Buri',
+        'Rayong',
+        'Chanthaburi',
+        'Trat',
+        'Chachoengsao',
+        'Prachin Buri',
+        'Nakhon Nayok',
+        'Sa Kaeo',
+        'Nakhon Ratchasima',
+        'Buri Ram',
+        'Surin',
+        'Si Sa Ket',
+        'Ubon Ratchathani',
+        'Yasothon',
+        'Chaiyaphum',
+        'Amnat Charoen',
+        'Bueng Kan',
+        'Nong Bua Lam Phu',
+        'Khon Kaen',
+        'Udon Thani',
+        'Loei',
+        'Nong Khai',
+        'Maha Sarakham',
+        'Roi Et',
+        'Kalasin',
+        'Sakon Nakhon',
+        'Nakhon Phanom',
+        'Mukdahan',
+        'Chiang Mai',
+        'Lamphun',
+        'Lampang',
+        'Uttaradit',
+        'Phrae',
+        'Nan',
+        'Phayao',
+        'Chiang Rai',
+        'Mae Hong Son',
+        'Nakhon Sawan',
+        'Uthai Thani',
+        'Kamphaeng Phet',
+        'Tak',
+        'Sukhothai',
+        'Phitsanulok',
+        'Phichit',
+        'Phetchabun',
+        'Ratchaburi',
+        'Kanchanaburi',
+        'Suphan Buri',
+        'Nakhon Pathom',
+        'Samut Sakhon',
+        'Samut Songkhram',
+        'Phetchaburi',
+        'Prachuap Khiri Khan',
+        'Nakhon Si Thammarat',
+        'Krabi',
+        'Phang Nga',
+        'Phuket',
+        'Surat Thani',
+        'Ranong',
+        'Chumphon',
+        'Songkhla',
+        'Satun',
+        'Trang',
+        'Phatthalung',
+        'Pattani',
+        'Yala',
+        'Narathiwat',
+      ]
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
+  collectionName: 'packages';
+  info: {
+    displayName: 'Package';
+    pluralName: 'packages';
+    singularName: 'package';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    bookings: Schema.Attribute.Relation<'oneToMany', 'api::booking.booking'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    duration: Schema.Attribute.Integer;
+    end: Schema.Attribute.Date;
+    image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::package.package'
+    > &
+      Schema.Attribute.Private;
+    location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
+    name: Schema.Attribute.String;
+    price: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    start: Schema.Attribute.Date;
+    status_package: Schema.Attribute.Enumeration<['Draft', 'Publish']>;
+    stripe_product_id: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
+  collectionName: 'payments';
+  info: {
+    displayName: 'Payment';
+    pluralName: 'payments';
+    singularName: 'payment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    booking: Schema.Attribute.Relation<'oneToOne', 'api::booking.booking'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment.payment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    status_payment: Schema.Attribute.Enumeration<
+      ['Success', 'Pending', 'Failed']
+    >;
+    stripe_payment_id: Schema.Attribute.String;
+    stripe_receipt_url: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -828,6 +1052,7 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    bookings: Schema.Attribute.Relation<'oneToMany', 'api::booking.booking'>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -878,6 +1103,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::booking.booking': ApiBookingBooking;
+      'api::location.location': ApiLocationLocation;
+      'api::package.package': ApiPackagePackage;
+      'api::payment.payment': ApiPaymentPayment;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
