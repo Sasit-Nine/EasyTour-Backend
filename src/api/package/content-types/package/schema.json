@@ -4,17 +4,19 @@
   "info": {
     "singularName": "package",
     "pluralName": "packages",
-    "displayName": "Package"
+    "displayName": "Package",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
+    "package_id": {
+      "type": "integer",
+      "unique": true
     },
-    "description": {
+    "name": {
       "type": "string"
     },
     "price": {
@@ -30,14 +32,15 @@
       "type": "date"
     },
     "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "status_package": {
       "type": "enumeration",
@@ -45,9 +48,6 @@
         "Draft",
         "Publish"
       ]
-    },
-    "stripe_product_id": {
-      "type": "string"
     },
     "bookings": {
       "type": "relation",
@@ -60,6 +60,39 @@
       "relation": "oneToOne",
       "target": "api::location.location",
       "mappedBy": "package"
+    },
+    "note": {
+      "type": "text"
+    },
+    "time": {
+      "type": "time"
+    },
+    "max_people": {
+      "type": "integer"
+    },
+    "meeting_point": {
+      "type": "string"
+    },
+    "price_includes": {
+      "type": "richtext"
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "package_details": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::package-detail.package-detail",
+      "mappedBy": "package"
+    },
+    "stripe_product_id": {
+      "type": "string"
+    },
+    "stripe_price_id": {
+      "type": "string"
     }
   }
 }

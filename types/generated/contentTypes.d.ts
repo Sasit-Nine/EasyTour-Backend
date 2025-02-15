@@ -381,6 +381,7 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    client_secret: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -432,85 +433,117 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
     package: Schema.Attribute.Relation<'oneToOne', 'api::package.package'>;
     province: Schema.Attribute.Enumeration<
       [
-        'Bangkok',
-        'Samut Prakan',
-        'Nonthaburi',
-        'Pathum Thani',
-        'Phra Nakhon Si Ayutthaya',
-        'Ang Thong',
-        'Lop Buri',
-        'Sing Buri',
-        'Chai Nat',
-        'Saraburi',
-        'Chon Buri',
-        'Rayong',
-        'Chanthaburi',
-        'Trat',
-        'Chachoengsao',
-        'Prachin Buri',
-        'Nakhon Nayok',
-        'Sa Kaeo',
-        'Nakhon Ratchasima',
-        'Buri Ram',
-        'Surin',
-        'Si Sa Ket',
-        'Ubon Ratchathani',
-        'Yasothon',
-        'Chaiyaphum',
-        'Amnat Charoen',
-        'Bueng Kan',
-        'Nong Bua Lam Phu',
-        'Khon Kaen',
-        'Udon Thani',
-        'Loei',
-        'Nong Khai',
-        'Maha Sarakham',
-        'Roi Et',
-        'Kalasin',
-        'Sakon Nakhon',
-        'Nakhon Phanom',
-        'Mukdahan',
-        'Chiang Mai',
-        'Lamphun',
-        'Lampang',
-        'Uttaradit',
-        'Phrae',
-        'Nan',
-        'Phayao',
-        'Chiang Rai',
-        'Mae Hong Son',
-        'Nakhon Sawan',
-        'Uthai Thani',
-        'Kamphaeng Phet',
-        'Tak',
-        'Sukhothai',
-        'Phitsanulok',
-        'Phichit',
-        'Phetchabun',
-        'Ratchaburi',
-        'Kanchanaburi',
-        'Suphan Buri',
-        'Nakhon Pathom',
-        'Samut Sakhon',
-        'Samut Songkhram',
-        'Phetchaburi',
-        'Prachuap Khiri Khan',
-        'Nakhon Si Thammarat',
-        'Krabi',
-        'Phang Nga',
-        'Phuket',
-        'Surat Thani',
-        'Ranong',
-        'Chumphon',
-        'Songkhla',
-        'Satun',
-        'Trang',
-        'Phatthalung',
-        'Pattani',
-        'Yala',
-        'Narathiwat',
+        'Bangkok (\u0E01\u0E23\u0E38\u0E07\u0E40\u0E17\u0E1E\u0E21\u0E2B\u0E32\u0E19\u0E04\u0E23)',
+        'Samut Prakan (\u0E2A\u0E21\u0E38\u0E17\u0E23\u0E1B\u0E23\u0E32\u0E01\u0E32\u0E23)',
+        'Nonthaburi (\u0E19\u0E19\u0E17\u0E1A\u0E38\u0E23\u0E35)',
+        'Pathum Thani (\u0E1B\u0E17\u0E38\u0E21\u0E18\u0E32\u0E19\u0E35)',
+        'Phra Nakhon Si Ayutthaya (\u0E1E\u0E23\u0E30\u0E19\u0E04\u0E23\u0E28\u0E23\u0E35\u0E2D\u0E22\u0E38\u0E18\u0E22\u0E32)',
+        'Ang Thong (\u0E2D\u0E48\u0E32\u0E07\u0E17\u0E2D\u0E07)',
+        'Lop Buri (\u0E25\u0E1E\u0E1A\u0E38\u0E23\u0E35)',
+        'Sing Buri (\u0E2A\u0E34\u0E07\u0E2B\u0E4C\u0E1A\u0E38\u0E23\u0E35)',
+        'Chai Nat (\u0E0A\u0E31\u0E22\u0E19\u0E32\u0E17)',
+        'Saraburi (\u0E2A\u0E23\u0E30\u0E1A\u0E38\u0E23\u0E35)',
+        'Chon Buri (\u0E0A\u0E25\u0E1A\u0E38\u0E23\u0E35)',
+        'Rayong (\u0E23\u0E30\u0E22\u0E2D\u0E07)',
+        'Chanthaburi (\u0E08\u0E31\u0E19\u0E17\u0E1A\u0E38\u0E23\u0E35)',
+        'Trat (\u0E15\u0E23\u0E32\u0E14)',
+        'Chachoengsao (\u0E09\u0E30\u0E40\u0E0A\u0E34\u0E07\u0E40\u0E17\u0E23\u0E32)',
+        'Prachin Buri (\u0E1B\u0E23\u0E32\u0E08\u0E35\u0E19\u0E1A\u0E38\u0E23\u0E35)',
+        'Nakhon Nayok (\u0E19\u0E04\u0E23\u0E19\u0E32\u0E22\u0E01)',
+        'Sa Kaeo (\u0E2A\u0E23\u0E30\u0E41\u0E01\u0E49\u0E27)',
+        'Nakhon Ratchasima (\u0E19\u0E04\u0E23\u0E23\u0E32\u0E0A\u0E2A\u0E35\u0E21\u0E32)',
+        'Buri Ram (\u0E1A\u0E38\u0E23\u0E35\u0E23\u0E31\u0E21\u0E22\u0E4C)',
+        'Surin (\u0E2A\u0E38\u0E23\u0E34\u0E19\u0E17\u0E23\u0E4C)',
+        'Si Sa Ket (\u0E28\u0E23\u0E35\u0E2A\u0E30\u0E40\u0E01\u0E29)',
+        'Ubon Ratchathani (\u0E2D\u0E38\u0E1A\u0E25\u0E23\u0E32\u0E0A\u0E18\u0E32\u0E19\u0E35)',
+        'Yasothon (\u0E22\u0E42\u0E2A\u0E18\u0E23)',
+        'Chaiyaphum (\u0E0A\u0E31\u0E22\u0E20\u0E39\u0E21\u0E34)',
+        'Amnat Charoen (\u0E2D\u0E33\u0E19\u0E32\u0E08\u0E40\u0E08\u0E23\u0E34\u0E0D)',
+        'Bueng Kan (\u0E1A\u0E36\u0E07\u0E01\u0E32\u0E2C)',
+        'Nong Bua Lam Phu (\u0E2B\u0E19\u0E2D\u0E07\u0E1A\u0E31\u0E27\u0E25\u0E33\u0E20\u0E39)',
+        'Khon Kaen (\u0E02\u0E2D\u0E19\u0E41\u0E01\u0E48\u0E19)',
+        'Udon Thani (\u0E2D\u0E38\u0E14\u0E23\u0E18\u0E32\u0E19\u0E35)',
+        'Loei (\u0E40\u0E25\u0E22)',
+        'Nong Khai (\u0E2B\u0E19\u0E2D\u0E07\u0E04\u0E32\u0E22)',
+        'Maha Sarakham (\u0E21\u0E2B\u0E32\u0E2A\u0E32\u0E23\u0E04\u0E32\u0E21)',
+        'Roi Et (\u0E23\u0E49\u0E2D\u0E22\u0E40\u0E2D\u0E47\u0E14)',
+        'Kalasin (\u0E01\u0E32\u0E2C\u0E2A\u0E34\u0E19\u0E18\u0E38\u0E4C)',
+        'Sakon Nakhon (\u0E2A\u0E01\u0E25\u0E19\u0E04\u0E23)',
+        'Nakhon Phanom (\u0E19\u0E04\u0E23\u0E1E\u0E19\u0E21)',
+        'Mukdahan (\u0E21\u0E38\u0E01\u0E14\u0E32\u0E2B\u0E32\u0E23)',
+        'Chiang Mai (\u0E40\u0E0A\u0E35\u0E22\u0E07\u0E43\u0E2B\u0E21\u0E48)',
+        'Lamphun (\u0E25\u0E33\u0E1E\u0E39\u0E19)',
+        'Lampang (\u0E25\u0E33\u0E1B\u0E32\u0E07)',
+        'Uttaradit (\u0E2D\u0E38\u0E15\u0E23\u0E14\u0E34\u0E15\u0E16\u0E4C)',
+        'Phrae (\u0E41\u0E1E\u0E23\u0E48)',
+        'Nan (\u0E19\u0E48\u0E32\u0E19)',
+        'Phayao (\u0E1E\u0E30\u0E40\u0E22\u0E32)',
+        'Chiang Rai (\u0E40\u0E0A\u0E35\u0E22\u0E07\u0E23\u0E32\u0E22)',
+        'Mae Hong Son (\u0E41\u0E21\u0E48\u0E2E\u0E48\u0E2D\u0E07\u0E2A\u0E2D\u0E19)',
+        'Nakhon Sawan (\u0E19\u0E04\u0E23\u0E2A\u0E27\u0E23\u0E23\u0E04\u0E4C)',
+        'Uthai Thani (\u0E2D\u0E38\u0E17\u0E31\u0E22\u0E18\u0E32\u0E19\u0E35)',
+        'Kamphaeng Phet (\u0E01\u0E33\u0E41\u0E1E\u0E07\u0E40\u0E1E\u0E0A\u0E23)',
+        'Tak (\u0E15\u0E32\u0E01)',
+        'Sukhothai (\u0E2A\u0E38\u0E42\u0E02\u0E17\u0E31\u0E22)',
+        'Phitsanulok (\u0E1E\u0E34\u0E29\u0E13\u0E38\u0E42\u0E25\u0E01)',
+        'Phichit (\u0E1E\u0E34\u0E08\u0E34\u0E15\u0E23)',
+        'Phetchabun (\u0E40\u0E1E\u0E0A\u0E23\u0E1A\u0E39\u0E23\u0E13\u0E4C)',
+        'Ratchaburi (\u0E23\u0E32\u0E0A\u0E1A\u0E38\u0E23\u0E35)',
+        'Kanchanaburi (\u0E01\u0E32\u0E0D\u0E08\u0E19\u0E1A\u0E38\u0E23\u0E35)',
+        'Suphan Buri (\u0E2A\u0E38\u0E1E\u0E23\u0E23\u0E13\u0E1A\u0E38\u0E23\u0E35)',
+        'Nakhon Pathom (\u0E19\u0E04\u0E23\u0E1B\u0E10\u0E21)',
+        'Samut Sakhon (\u0E2A\u0E21\u0E38\u0E17\u0E23\u0E2A\u0E32\u0E04\u0E23)',
+        'Samut Songkhram (\u0E2A\u0E21\u0E38\u0E17\u0E23\u0E2A\u0E07\u0E04\u0E23\u0E32\u0E21)',
+        'Phetchaburi (\u0E40\u0E1E\u0E0A\u0E23\u0E1A\u0E38\u0E23\u0E35)',
+        'Prachuap Khiri Khan (\u0E1B\u0E23\u0E30\u0E08\u0E27\u0E1A\u0E04\u0E35\u0E23\u0E35\u0E02\u0E31\u0E19\u0E18\u0E4C)',
+        'Nakhon Si Thammarat (\u0E19\u0E04\u0E23\u0E28\u0E23\u0E35\u0E18\u0E23\u0E23\u0E21\u0E23\u0E32\u0E0A)',
+        'Krabi (\u0E01\u0E23\u0E30\u0E1A\u0E35\u0E48)',
+        'Phang Nga (\u0E1E\u0E31\u0E07\u0E07\u0E32)',
+        'Phuket (\u0E20\u0E39\u0E40\u0E01\u0E47\u0E15)',
+        'Surat Thani (\u0E2A\u0E38\u0E23\u0E32\u0E29\u0E0E\u0E23\u0E4C\u0E18\u0E32\u0E19\u0E35)',
+        'Ranong (\u0E23\u0E30\u0E19\u0E2D\u0E07)',
+        'Chumphon (\u0E0A\u0E38\u0E21\u0E1E\u0E23)',
+        'Songkhla (\u0E2A\u0E07\u0E02\u0E25\u0E32)',
+        'Satun (\u0E2A\u0E15\u0E39\u0E25)',
+        'Trang (\u0E15\u0E23\u0E31\u0E07)',
+        'Phatthalung (\u0E1E\u0E31\u0E17\u0E25\u0E38\u0E07)',
+        'Pattani (\u0E1B\u0E31\u0E15\u0E15\u0E32\u0E19\u0E35)',
+        'Yala (\u0E22\u0E30\u0E25\u0E32)',
+        'Narathiwat (\u0E19\u0E23\u0E32\u0E18\u0E34\u0E27\u0E32\u0E2A)',
       ]
     >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPackageDetailPackageDetail
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'package_details';
+  info: {
+    description: '';
+    displayName: 'Package-Detail';
+    pluralName: 'package-details';
+    singularName: 'package-detail';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    detail: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::package-detail.package-detail'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    package: Schema.Attribute.Relation<'manyToOne', 'api::package.package'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -521,6 +554,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
 export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
   collectionName: 'packages';
   info: {
+    description: '';
     displayName: 'Package';
     pluralName: 'packages';
     singularName: 'package';
@@ -533,7 +567,7 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
     duration: Schema.Attribute.Integer;
     end: Schema.Attribute.Date;
     image: Schema.Attribute.Media<
@@ -547,12 +581,24 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     location: Schema.Attribute.Relation<'oneToOne', 'api::location.location'>;
+    max_people: Schema.Attribute.Integer;
+    meeting_point: Schema.Attribute.String;
     name: Schema.Attribute.String;
+    note: Schema.Attribute.Text;
+    package_details: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::package-detail.package-detail'
+    >;
+    package_id: Schema.Attribute.Integer & Schema.Attribute.Unique;
     price: Schema.Attribute.Decimal;
+    price_includes: Schema.Attribute.RichText;
     publishedAt: Schema.Attribute.DateTime;
+    rating: Schema.Attribute.Integer;
     start: Schema.Attribute.Date;
     status_package: Schema.Attribute.Enumeration<['Draft', 'Publish']>;
+    stripe_price_id: Schema.Attribute.String;
     stripe_product_id: Schema.Attribute.String;
+    time: Schema.Attribute.Time;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1079,7 +1125,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1105,6 +1150,9 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    profile_picture: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1136,6 +1184,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::booking.booking': ApiBookingBooking;
       'api::location.location': ApiLocationLocation;
+      'api::package-detail.package-detail': ApiPackageDetailPackageDetail;
       'api::package.package': ApiPackagePackage;
       'api::payment.payment': ApiPaymentPayment;
       'api::review.review': ApiReviewReview;

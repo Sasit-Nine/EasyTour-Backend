@@ -44,6 +44,9 @@
       "relation": "oneToOne",
       "target": "api::review.review",
       "mappedBy": "booking"
+    },
+    "client_secret": {
+      "type": "string"
     }
   }
 }

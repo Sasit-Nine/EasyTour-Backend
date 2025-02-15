@@ -6,4 +6,16 @@
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::payment.payment');
+module.exports = {
+    routes: [
+      {
+        method: "POST",
+        path: "/payment/checkout",
+        handler: "payment.createCheckoutSession",
+        config: {
+          auth: false, // ปรับตามต้องการ
+        },
+      },
+    ],
+  };
+  

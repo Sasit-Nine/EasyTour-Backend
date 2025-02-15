@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "package_details",
+  "info": {
+    "singularName": "package-detail",
+    "pluralName": "package-details",
+    "displayName": "Package-Detail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "package": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::package.package",
+      "inversedBy": "package_details"
+    }
+  }
+}
