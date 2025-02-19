@@ -27,9 +27,6 @@
     "quantity": {
       "type": "integer"
     },
-    "payment_intent_id": {
-      "type": "string"
-    },
     "total_price": {
       "type": "decimal"
     },
@@ -45,8 +42,38 @@
       "target": "api::review.review",
       "mappedBy": "booking"
     },
-    "client_secret": {
+    "fname": {
       "type": "string"
+    },
+    "booking_status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "success",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "tel": {
+      "type": "string"
+    },
+    "lname": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "district": {
+      "type": "string"
+    },
+    "booking_id": {
+      "type": "integer"
     }
   }
 }

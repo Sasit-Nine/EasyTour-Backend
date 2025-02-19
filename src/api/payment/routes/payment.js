@@ -13,7 +13,15 @@ module.exports = {
         path: "/payment/checkout",
         handler: "payment.createCheckoutSession",
         config: {
-          auth: false, // ปรับตามต้องการ
+          auth: false,
+        },
+      },
+      {
+        method: "POST",
+        path: "/payment/webhook",
+        handler: "payment.webhook",
+        config: {
+            auth: false, 
         },
       },
     ],

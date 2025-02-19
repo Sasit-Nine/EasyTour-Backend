@@ -381,7 +381,13 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    client_secret: Schema.Attribute.String;
+    address: Schema.Attribute.String;
+    booking_id: Schema.Attribute.Integer;
+    booking_status: Schema.Attribute.Enumeration<
+      ['pending', 'success', 'failed']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
+    city: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -389,6 +395,9 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    district: Schema.Attribute.String;
+    fname: Schema.Attribute.String;
+    lname: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -397,10 +406,11 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     package: Schema.Attribute.Relation<'manyToOne', 'api::package.package'>;
     payment: Schema.Attribute.Relation<'oneToOne', 'api::payment.payment'>;
-    payment_intent_id: Schema.Attribute.String;
+    province: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer;
     review: Schema.Attribute.Relation<'oneToOne', 'api::review.review'>;
+    tel: Schema.Attribute.String;
     total_price: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -608,12 +618,13 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
 export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
   collectionName: 'payments';
   info: {
+    description: '';
     displayName: 'Payment';
     pluralName: 'payments';
     singularName: 'payment';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     amount: Schema.Attribute.Decimal;
