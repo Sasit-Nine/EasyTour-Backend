@@ -605,13 +605,13 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
     >;
     package_id: Schema.Attribute.Integer & Schema.Attribute.Unique;
     price: Schema.Attribute.Decimal;
-    price_includes: Schema.Attribute.RichText;
     publishedAt: Schema.Attribute.DateTime;
     rating: Schema.Attribute.Integer;
     start: Schema.Attribute.Date;
     status_package: Schema.Attribute.Enumeration<['Draft', 'Publish']>;
     stripe_price_id: Schema.Attribute.String;
     stripe_product_id: Schema.Attribute.String;
+    thumbnail: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     time: Schema.Attribute.Time;
     type: Schema.Attribute.Enumeration<
       [

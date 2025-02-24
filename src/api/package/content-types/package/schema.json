@@ -73,9 +73,6 @@
     "meeting_point": {
       "type": "string"
     },
-    "price_includes": {
-      "type": "richtext"
-    },
     "rating": {
       "type": "integer"
     },
@@ -103,6 +100,16 @@
         "Family Tour",
         "Honeymoon & Romantic Tour"
       ]
+    },
+    "thumbnail": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
