@@ -93,6 +93,16 @@
     },
     "stripe_price_id": {
       "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Nature & Mountain Tour",
+        "Cultural & Historical Tour",
+        "Adventure Tour",
+        "Family Tour",
+        "Honeymoon & Romantic Tour"
+      ]
     }
   }
 }

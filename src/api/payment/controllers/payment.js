@@ -6,7 +6,7 @@
 
 const { createCoreController } = require("@strapi/strapi").factories
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
-const endpointSecret = "whsec_94258d74205d08636add1bdc2eca1a6259adec0ebdc2ada17356e39275d1230c"
+const endpointSecret = process.env.WEBHOOK_SECRET
 let globalBookingID = null;
 
 module.exports = createCoreController("api::payment.payment", ({ strapi }) => ({

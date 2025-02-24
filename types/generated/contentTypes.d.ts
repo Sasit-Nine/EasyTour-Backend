@@ -421,6 +421,7 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
 export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
   collectionName: 'locations';
   info: {
+    description: '';
     displayName: 'Location';
     pluralName: 'locations';
     singularName: 'location';
@@ -523,6 +524,9 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       ]
     >;
     publishedAt: Schema.Attribute.DateTime;
+    sector: Schema.Attribute.Enumeration<
+      ['north', 'west', 'south', 'east', 'central']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -609,6 +613,15 @@ export interface ApiPackagePackage extends Struct.CollectionTypeSchema {
     stripe_price_id: Schema.Attribute.String;
     stripe_product_id: Schema.Attribute.String;
     time: Schema.Attribute.Time;
+    type: Schema.Attribute.Enumeration<
+      [
+        'Nature & Mountain Tour',
+        'Cultural & Historical Tour',
+        'Adventure Tour',
+        'Family Tour',
+        'Honeymoon & Romantic Tour',
+      ]
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

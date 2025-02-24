@@ -4,7 +4,8 @@
   "info": {
     "singularName": "location",
     "pluralName": "locations",
-    "displayName": "Location"
+    "displayName": "Location",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -104,6 +105,16 @@
     },
     "google_place_id": {
       "type": "string"
+    },
+    "sector": {
+      "type": "enumeration",
+      "enum": [
+        "north",
+        "west",
+        "south",
+        "east",
+        "central"
+      ]
     }
   }
 }
