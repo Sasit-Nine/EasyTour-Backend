@@ -73,7 +73,7 @@ module.exports = createCoreController("api::payment.payment", ({ strapi }) => ({
 
   async createCheckoutSession(ctx) {
     try {
-      const { packageId, BookingId } = ctx.request.body;
+      const { packageId, BookingId, Quantity } = ctx.request.body;
       console.log(BookingId, packageId)
       globalBookingID = BookingId
       const tourPackage = await strapi.entityService.findOne('api::package.package', packageId, {
@@ -92,7 +92,7 @@ module.exports = createCoreController("api::payment.payment", ({ strapi }) => ({
             },
             unit_amount: tourPackage.price * 100
           },
-          quantity: 1
+          quantity: Quantity
         }],
         mode: 'payment',
         success_url: `${process.env.FRONTEND_URL}/checkout-success`,
