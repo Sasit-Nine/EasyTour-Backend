@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "packagedetails",
+  "info": {
+    "singularName": "packagedetail",
+    "pluralName": "packagedetails",
+    "displayName": "PackageDetail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "accommodation": {
+      "type": "string"
+    },
+    "price_includes": {
+      "type": "text"
+    },
+    "tourist_attraction": {
+      "type": "text"
+    },
+    "package": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::package.package",
+      "inversedBy": "detail"
+    }
+  }
+}

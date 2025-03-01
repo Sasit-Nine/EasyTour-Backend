@@ -25,12 +25,6 @@
     "duration": {
       "type": "integer"
     },
-    "start": {
-      "type": "date"
-    },
-    "end": {
-      "type": "date"
-    },
     "image": {
       "type": "media",
       "multiple": true,
@@ -61,9 +55,6 @@
       "target": "api::location.location",
       "mappedBy": "package"
     },
-    "note": {
-      "type": "text"
-    },
     "time": {
       "type": "time"
     },
@@ -79,12 +70,6 @@
     "description": {
       "type": "text"
     },
-    "package_details": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::package-detail.package-detail",
-      "mappedBy": "package"
-    },
     "stripe_product_id": {
       "type": "string"
     },
@@ -94,22 +79,38 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "Nature & Mountain Tour",
-        "Cultural & Historical Tour",
+        "Nature And Mountain Tour",
+        "Cultural And Historical Tour",
         "Adventure Tour",
         "Family Tour",
         "Honeymoon & Romantic Tour"
       ]
     },
     "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "detail": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::packagedetail.packagedetail",
+      "mappedBy": "package"
+    },
+    "timetables": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::timetable.timetable",
+      "mappedBy": "package"
+    },
+    "with_accommodation": {
+      "type": "boolean"
     }
   }
 }

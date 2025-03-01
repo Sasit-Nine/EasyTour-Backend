@@ -74,6 +74,12 @@
     },
     "booking_id": {
       "type": "integer"
+    },
+    "timetable": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::timetable.timetable",
+      "inversedBy": "bookings"
     }
   }
 }
