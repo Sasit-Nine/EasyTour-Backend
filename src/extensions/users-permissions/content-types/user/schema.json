@@ -72,14 +72,36 @@
       "mappedBy": "customers"
     },
     "profile_picture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "fname": {
+      "type": "string"
+    },
+    "lname": {
+      "type": "string"
+    },
+    "tel": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    },
+    "district": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
     }
   }
 }

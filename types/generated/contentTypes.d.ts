@@ -409,7 +409,6 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     province: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer;
-    review: Schema.Attribute.Relation<'oneToOne', 'api::review.review'>;
     tel: Schema.Attribute.String;
     timetable: Schema.Attribute.Relation<
       'manyToOne',
@@ -585,36 +584,6 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     >;
     stripe_payment_id: Schema.Attribute.String;
     stripe_receipt_url: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiReviewReview extends Struct.CollectionTypeSchema {
-  collectionName: 'reviews';
-  info: {
-    displayName: 'Review';
-    pluralName: 'reviews';
-    singularName: 'review';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    booking: Schema.Attribute.Relation<'oneToOne', 'api::booking.booking'>;
-    comment: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::review.review'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    rating: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1110,18 +1079,23 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
+    address: Schema.Attribute.String;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     bookings: Schema.Attribute.Relation<'oneToMany', 'api::booking.booking'>;
+    city: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    district: Schema.Attribute.String;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    fname: Schema.Attribute.String;
+    lname: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1137,12 +1111,14 @@ export interface PluginUsersPermissionsUser
       'images' | 'files' | 'videos' | 'audios'
     >;
     provider: Schema.Attribute.String;
+    province: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    tel: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1170,7 +1146,6 @@ declare module '@strapi/strapi' {
       'api::package.package': ApiPackagePackage;
       'api::packagedetail.packagedetail': ApiPackagedetailPackagedetail;
       'api::payment.payment': ApiPaymentPayment;
-      'api::review.review': ApiReviewReview;
       'api::timetable.timetable': ApiTimetableTimetable;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

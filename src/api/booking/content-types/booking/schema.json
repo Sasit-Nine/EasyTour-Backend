@@ -36,12 +36,6 @@
       "target": "api::payment.payment",
       "mappedBy": "booking"
     },
-    "review": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::review.review",
-      "mappedBy": "booking"
-    },
     "fname": {
       "type": "string"
     },
