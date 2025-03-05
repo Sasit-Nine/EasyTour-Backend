@@ -3,6 +3,15 @@ module.exports = [
   'strapi::errors',
   'strapi::security',
   'strapi::cors',
+  {
+    name: 'strapi::cors',
+    config: {
+      enabled: true,
+      headers: '*',
+      origin: ['http://localhost:5173', 'https://w09.pupasoft.com'], 
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    },
+  },
   'strapi::poweredBy',
   'strapi::query',
   {
